@@ -4,9 +4,11 @@ import org.springframework.stereotype.Repository;
 import ru.jhecks.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDAOImp implements UserDAO {
 
     @PersistenceContext
@@ -30,6 +32,11 @@ public class UserDAOImp implements UserDAO {
     @Override
     public User getUser(long id) {
         return entityManager.createQuery("select u from User u where u.id=:id", User.class).setParameter("id", id).getSingleResult();
+    }
+
+    @Override
+    public User getUser(String username) {
+        return entityManager.createQuery("select u from User u where u.username=:username", User.class).setParameter("username", username).getSingleResult();
     }
 
     @Override
