@@ -1,6 +1,5 @@
 package ru.jhecks.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ public class AdminController {
 
     private final UserService userService;
 
-    @Autowired
     public AdminController(UserService userService) {
         this.userService = userService;
     }
@@ -42,10 +40,4 @@ public class AdminController {
         model.addAttribute("user", userService.getUser(auth.getName()));
         return "info";
     }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
 }

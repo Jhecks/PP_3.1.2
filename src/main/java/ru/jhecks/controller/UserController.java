@@ -25,8 +25,8 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("{id}")
-    public String showUser(@PathVariable("id") long id, Model model) {
+    @GetMapping("/{id}")
+    public String showUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "info";
     }
@@ -35,24 +35,27 @@ public class UserController {
     public String newUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.getAllRoles());
+        model.addAttribute("allRoles", roleService.getAllRoles());
         return "add";
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") User user, Model model) {
+        System.out.println("User roles: ");
+        System.out.println(user.getRoles());
         userService.createUser(user);
         return "redirect:/admin/users";
     }
 
     @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") long id, Model model) {
+    public String editUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("allRoles", roleService.getAllRoles());
         return "edit";
     }
 
-    @PatchMapping("{id}")
-    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user) {
+    @PatchMapping("/{id}")
+    public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
         if (user.getPassword().isEmpty()) {
             user.setPassword(userService.getUser(id).getPassword());
         }
@@ -61,7 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") long id) {
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin/users";
     }

@@ -24,10 +24,6 @@ public class Role implements GrantedAuthority {
         this.label = label;
     }
 
-    public Role(String name) {
-        this.name = name;
-    }
-
     public Role() {}
 
     public Set<User> getUsers() {

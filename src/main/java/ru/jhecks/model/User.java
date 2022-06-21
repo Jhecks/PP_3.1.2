@@ -8,26 +8,18 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "users")
+@Table(name = "user")
 @Entity
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String name;
-
-    @Column
+    private String firstname;
     private String lastname;
-
-    @Column
     private int age;
-
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
-
-    @Column
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
@@ -36,8 +28,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String name, String lastname, int age, String username, String password, Set<Role> roles) {
-        this.name = name;
+    public User(String firstname, String lastname, int age, String username, String password, Set<Role> roles) {
+        this.firstname = firstname;
         this.lastname = lastname;
         this.age = age;
         this.username = username;
@@ -47,20 +39,36 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public Long getId() {
-        return id;
+    public int getAge() {
+        return age;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public String getName() {
-        return name;
+    public void addRole(Role role) {
+        roles.add(role);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void removeRole(Role role) {
+        roles.remove(role);
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -71,12 +79,27 @@ public class User implements UserDetails {
         this.lastname = lastname;
     }
 
-    public int getAge() {
-        return age;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() {
+        return firstname;
+    }
+
+    public void setName(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -89,17 +112,9 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override

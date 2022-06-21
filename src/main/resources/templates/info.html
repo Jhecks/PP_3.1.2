@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User info</title>
@@ -10,10 +10,13 @@
 
     <div align=" center ">
         Id: <span th:text="${user.getId()}"></span><br />
-        Name: <span th:text="${user.getName()}"></span><br />
+        Firstname: <span th:text="${user.getFirstname()}"></span><br />
         Lastname: <span th:text="${user.getLastname()}"></span><br />
         Age: <span th:text="${user.getAge()}"></span><br />
         Username: <span th:text="${user.getUsername()}"></span><br />
+        Roles:  <th:block th:each="role : ${user.getRoles()}">
+                    <span th:text="${role.getLabel()} "></span>&nbsp;
+                </th:block><br />
     </div>
 </body>
 </html>

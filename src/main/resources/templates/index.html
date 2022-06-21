@@ -10,11 +10,12 @@
 
     <table class="pure-table" style="margin-left:auto;margin-right:auto;">
         <thead>
-        <tr>
-            <td>Name</td>
+        <tr align=" center ">
+            <td>Firstname</td>
             <td>Lastname</td>
-            <td>Age</td>
             <td>Username</td>
+            <td>Age</td>
+            <td>Roles</td>
             <td>Actions</td>
         </tr>
         </thead>
@@ -22,8 +23,9 @@
         <tr th:each="user : ${users}" align=" center ">
             <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getName()}"></a></td>
             <td th:text="${user.getLastname()}"></td>
-            <td th:text="${user.getAge()}"></td>
             <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td><div th:each="role : ${user.getRoles()}" th:text="${role.getLabel()}"></div></td>
             <td>
                 <form class="pure-form" th:method="delete" th:action="@{/admin/users/{id}(id=${user.getId()})}">
                     <a class="pure-button-secondary pure-button" th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Modify</a>
