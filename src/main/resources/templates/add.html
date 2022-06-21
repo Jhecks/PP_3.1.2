@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+</head>
+<body>
+    <div th:insert="~{bar :: menu}"></div>
+
+    <form class="pure-form pure-form-aligned" th:method="post" th:action="@{/admin/users}" th:object="${user}">
+        <div class="pure-control-group" align=" center ">
+            <label th:for="firstname">Firstname:</label>
+            <input type="text" th:field="*{firstname}" />
+        </div>
+        <div class="pure-control-group" align=" center ">
+            <label th:for="lastname">Lastname:</label>
+            <input type="text" th:field="*{lastname}" />
+        </div>
+        <div class="pure-control-group" align=" center ">
+            <label th:for="age">Age:</label>
+            <input type="text" th:field="*{age}" />
+        </div>
+        <div class="pure-control-group" align=" center ">
+            <label th:for="username">Username:</label>
+            <input type="text" th:field="*{username}" />
+        </div>
+        <div class="pure-control-group" align=" center ">
+            <label th:for="password">Password: </label>
+            <input type="password" th:field="*{password}" />
+        </div>
+        <fieldset align=" center ">
+            <legend>Choose user role</legend>
+            <input type="checkbox"
+                   th:each="role : ${allRoles}"
+                   th:text="${role.label}"
+                   th:value="${role.name}"
+                   th:field="*{roles}"
+            />
+        </fieldset>
+        <div class="pure-control-group" align=" center ">
+            <input class="pure-button pure-button-primary pure-u-1-4" type="submit" value="Create!">
+        </div>
+    </form>
+</body>
+</html>
