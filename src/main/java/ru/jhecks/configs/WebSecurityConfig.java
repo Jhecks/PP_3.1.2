@@ -59,8 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // Делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
-                .antMatchers( "/favicon.ico").permitAll()
-                // Страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // Защищенные URL
                 .antMatchers("/admin/**").hasRole("ADMIN")

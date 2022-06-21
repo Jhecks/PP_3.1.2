@@ -40,7 +40,7 @@ public class AdminController {
     public String showProfile(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", userService.getUser(auth.getName()));
-        return "users/info";
+        return "info";
     }
 
     @GetMapping("/login")

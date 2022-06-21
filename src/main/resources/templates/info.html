@@ -6,13 +6,22 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
 </head>
 <body>
-    <div th:insert="~{users/bar :: menu}"></div>
+    <div th:insert="~{bar :: menu}"></div>
 
     <div align=" center ">
         Id: <span th:text="${user.getId()}"></span><br />
         Name: <span th:text="${user.getName()}"></span><br />
         Lastname: <span th:text="${user.getLastname()}"></span><br />
         Age: <span th:text="${user.getAge()}"></span><br />
+        Username: <span th:text="${user.getUsername()}"></span><br />
+<!--        Roles: <th:block th:each="role : ${user.getRoles()}">-->
+<!--            <span th:text="${role.getName()}"></span>-->
+<!--        </th:block>-->
+<!--        Role: <th:block th:each="${user.getRoles()}">-->
+<!--                <span th:text="${role.getName()}"></span>-->
+<!--            </th:block><br />-->
+<!--        Roles:  <th:block th:each="role : ${user.getRoles()}">-->
+<!--        <span th:text="${role.getLabel()} "></span>&nbsp;-->
     </div>
 </body>
 </html>
