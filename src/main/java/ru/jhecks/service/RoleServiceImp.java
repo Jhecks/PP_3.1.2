@@ -2,47 +2,47 @@ package ru.jhecks.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.jhecks.dao.RoleDAO;
 import ru.jhecks.model.Role;
+import ru.jhecks.repository.RoleRepository;
 
 import java.util.List;
 
 @Service
 public class RoleServiceImp implements RoleService {
 
-    private final RoleDAO roleDAO;
+    private final RoleRepository roleRepository;
 
-    public RoleServiceImp(RoleDAO roleDAO) {
-        this.roleDAO = roleDAO;
+    public RoleServiceImp(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public void createRole(Role role) {
-        roleDAO.createRole(role);
+        roleRepository.save(role);
     }
 
     @Override
     public void deleteRole(Role role) {
-        roleDAO.deleteRole(role);
+        roleRepository.delete(role);
     }
 
     @Override
     public void updateRole(Role role) {
-        roleDAO.updateRole(role);
+        roleRepository.save(role);
     }
 
     @Override
     public Role getRole(String name) {
-        return roleDAO.getRole(name);
+        return roleRepository.findByName(name);
     }
 
     @Override
     public Role getRole(long id) {
-        return roleDAO.getRole(id);
+        return roleRepository.findById(id).get();
     }
 
     @Override
     public List<Role> getAllRoles() {
-        return roleDAO.getAllRoles();
+        return (List<Role>) roleRepository.findAll();
     }
 }

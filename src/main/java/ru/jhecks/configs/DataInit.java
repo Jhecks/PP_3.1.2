@@ -1,51 +1,32 @@
 package ru.jhecks.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import ru.jhecks.model.Role;
 import ru.jhecks.model.User;
-import ru.jhecks.service.RoleService;
-import ru.jhecks.service.UserService;
+import ru.jhecks.repository.RoleRepository;
+import ru.jhecks.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Component
-@ComponentScan("ru.jhecks.service")
 public class DataInit {
 
-    private final UserService userService;
-    private final RoleService roleService;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public DataInit(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    private final RoleRepository roleRepository;
+
+    public DataInit(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostConstruct
-    private void init() {
-        Role roleUser = new Role("USER");
-        Role roleAdmin = new Role("ADMIN");
-        roleService.createRole(roleUser);
-        roleService.createRole(roleAdmin);
-
-        User user = new User();
-        user.setName("Ivan");
-        user.setLastname("Ivanov");
-        user.setAge(52);
-        user.setUsername("user");
-        user.setPassword("1234");
-
-        User admin = new User();
-        user.setName("Michael");
-        user.setLastname("Semenov");
-        user.setAge(22);
-        user.setUsername("admin");
-        user.setPassword("admin");
-
-
-        userService.createUser(user);
-        userService.createUser(admin);
+    void init() {
+        roleRepository.save(new Role("ROLE_ADMIN", "Administrator"));
+        roleRepository.save(new Role("ROLE_USER", "User"));
+        userRepository.save(new User("Michael", "Semenov", 22, "JHecks", "admin",  Set.of(roleRepository.findByName("ROLE_ADMIN"))));
+        userRepository.save(new User("user", "user", 55, "Simple user", "1234",  Set.of(roleRepository.findByName("ROLE_USER"))));
     }
+
 }

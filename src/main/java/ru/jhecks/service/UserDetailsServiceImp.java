@@ -1,17 +1,21 @@
 package ru.jhecks.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ru.jhecks.dao.UserDAO;
+import org.springframework.stereotype.Service;
+import ru.jhecks.repository.UserRepository;
 
+@Service
 public class UserDetailsServiceImp implements UserDetailsService {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserRepository userRepository;
+
+    public UserDetailsServiceImp(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return userDAO.getUser(username);
+        return userRepository.findByUsername(username);
     }
 }

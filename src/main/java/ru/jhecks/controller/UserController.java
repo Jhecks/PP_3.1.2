@@ -8,7 +8,7 @@ import ru.jhecks.service.RoleService;
 import ru.jhecks.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 public class UserController {
 
     private final UserService userService;
