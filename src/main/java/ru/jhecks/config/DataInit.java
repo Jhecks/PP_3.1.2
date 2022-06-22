@@ -1,5 +1,6 @@
 package ru.jhecks.config;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.jhecks.model.Role;
 import ru.jhecks.model.User;
@@ -22,12 +23,12 @@ public class DataInit {
 
     @PostConstruct
     void init() {
-        roleRepository.save(new Role("ADMIN", "Admin"));
-        roleRepository.save(new Role("USER", "User"));
+        roleRepository.save(new Role("ROLE_ADMIN", "Admin"));
+        roleRepository.save(new Role("ROLE_USER", "User"));
 
         userRepository.save(new User("Michael", "Semenov", 22,
-                "admin", "admin", Set.of(roleRepository.findByName("ADMIN"))));
+                "admin", new BCryptPasswordEncoder().encode("admin"), Set.of(roleRepository.findByName("ROLE_ADMIN"))));
         userRepository.save(new User("Bogdan", "Ivanov", 10,
-                "user", "1111", Set.of(roleRepository.findByName("USER"))));
+                "user", new BCryptPasswordEncoder().encode("1111"), Set.of(roleRepository.findByName("ROLE_USER"))));
     }
 }

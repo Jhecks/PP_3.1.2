@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping()
-public class AdminController {
+public class CommonController {
 
     private final UserService userService;
 
-    public AdminController(UserService userService) {
+    public CommonController(UserService userService) {
         this.userService = userService;
     }
 

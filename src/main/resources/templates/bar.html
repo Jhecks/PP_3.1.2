@@ -3,8 +3,8 @@
 <body>
     <div th:fragment="menu" align=" center ">
         <div class="pure-menu home-menu pure-menu-horizontal">
-            <span sec:authorize="hasAnyAuthority('ADMIN')"><a th:href="@{/admin/users/add}" class="pure-menu-heading pure-menu-link">Add user</a></span>
-            <span sec:authorize="hasAnyAuthority('ADMIN')"><a th:href="@{/admin/users}" class="pure-menu-heading pure-menu-link">Userlist</a></span>
+            <span sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/users/add}" class="pure-menu-heading pure-menu-link">Add user</a></span>
+            <span sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/users}" class="pure-menu-heading pure-menu-link">Userlist</a></span>
             <a th:href="@{/logout}" class="pure-menu-heading pure-menu-link">Logout</a>
         </div>
         <br />
