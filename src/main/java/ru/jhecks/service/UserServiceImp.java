@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
@@ -36,16 +37,19 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUser(long id) {
         return userRepository.findById(id).get();
     }
 
     @Override
+    @Transactional
     public User getUser(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
+    @Transactional
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }

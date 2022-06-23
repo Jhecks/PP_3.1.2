@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -34,7 +35,8 @@ public class User implements UserDetails {
         this.lastname = lastname;
         this.age = age;
         this.username = username;
-        this.password = password;
+        //Кодируем пароль
+        this.setPassword(password);
         this.roles = roles;
     }
 
@@ -99,6 +101,7 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    //При добавлении/изменении пароля на сайте, он также добавляется шифрованным
     public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
     }

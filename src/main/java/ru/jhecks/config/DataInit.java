@@ -26,9 +26,10 @@ public class DataInit {
         roleRepository.save(new Role("ROLE_ADMIN", "Admin"));
         roleRepository.save(new Role("ROLE_USER", "User"));
 
+        //Использую зашифрованный пароль для добавления, в базе данных отображается как хэш
         userRepository.save(new User("Michael", "Semenov", 22,
-                "admin", new BCryptPasswordEncoder().encode("admin"), Set.of(roleRepository.findByName("ROLE_ADMIN"))));
+                "admin", "admin", Set.of(roleRepository.findByName("ROLE_ADMIN"))));
         userRepository.save(new User("Bogdan", "Ivanov", 10,
-                "user", new BCryptPasswordEncoder().encode("1111"), Set.of(roleRepository.findByName("ROLE_USER"))));
+                "user", "1111", Set.of(roleRepository.findByName("ROLE_USER"))));
     }
 }
