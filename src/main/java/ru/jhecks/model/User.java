@@ -35,8 +35,7 @@ public class User implements UserDetails {
         this.lastname = lastname;
         this.age = age;
         this.username = username;
-        //Кодируем пароль
-        this.setPassword(password);
+        this.password = password;
         this.roles = roles;
     }
 
@@ -101,9 +100,8 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    //При добавлении/изменении пароля на сайте, он также добавляется шифрованным
     public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
+        this.password = password;
     }
 
     @Override

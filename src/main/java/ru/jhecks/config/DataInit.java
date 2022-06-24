@@ -1,6 +1,7 @@
 package ru.jhecks.config;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.jhecks.model.Role;
 import ru.jhecks.model.User;
@@ -15,10 +16,12 @@ public class DataInit {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInit(UserRepository userRepository, RoleRepository roleRepository) {
+    public DataInit(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -26,10 +29,9 @@ public class DataInit {
         roleRepository.save(new Role("ROLE_ADMIN", "Admin"));
         roleRepository.save(new Role("ROLE_USER", "User"));
 
-        //Использую зашифрованный пароль для добавления, в базе данных отображается как хэш
         userRepository.save(new User("Michael", "Semenov", 22,
-                "admin", "admin", Set.of(roleRepository.findByName("ROLE_ADMIN"))));
+                "admin", passwordEncoder.encode("admin"), Set.of(roleRepository.findByName("ROLE_ADMIN"))));
         userRepository.save(new User("Bogdan", "Ivanov", 10,
-                "user", "1111", Set.of(roleRepository.findByName("ROLE_USER"))));
+                "user", passwordEncoder.encode("1111"), Set.of(roleRepository.findByName("ROLE_USER"))));
     }
 }
