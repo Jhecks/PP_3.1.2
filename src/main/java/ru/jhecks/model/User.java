@@ -81,7 +81,6 @@ public class User implements UserDetails {
         this.lastname = lastname;
     }
 
-
     public Long getId() {
         return id;
     }

@@ -56,9 +56,6 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
-        if (user.getPassword().isEmpty()) {
-            user.setPassword(userService.getUser(id).getPassword());
-        }
         userService.updateUser(id, user);
         return "redirect:/admin/users";
     }
