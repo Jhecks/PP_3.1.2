@@ -17,7 +17,6 @@ public class RoleConverter implements Converter<String, Role> {
     }
 
     @Override
-    @Transactional
     public Role convert(String roleName) {
         try {
             return roleService.getRole(roleName);
