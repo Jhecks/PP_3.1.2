@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.jhecks.model.Role;
 import ru.jhecks.repository.RoleRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
