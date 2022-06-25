@@ -41,8 +41,6 @@ public class UserController {
 
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user, Model model) {
-        System.out.println("User roles: ");
-        System.out.println(user.getRoles());
         userService.createUser(user);
         return "redirect:/admin/users";
     }
